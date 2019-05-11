@@ -1,0 +1,66 @@
+﻿  <html lang="en">
+    <head>
+      <meta charset="utf-8">
+      <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+      <meta name="description" content="">
+      <meta name="author" content="">
+      <link rel="icon" href="icon.ico">
+
+      <title>Movies Colombia S.A</title>
+
+      <!-- Bootstrap core CSS -->
+      <link href="bootstrap-4.0.0/css/bootstrap.min.css" rel="stylesheet">
+      <script src="bootstrap-4.0.0/js/popper.min.js" type="text/javascript"></script>
+        <script src="bootstrap-4.0.0/js/holder.min.js" type="text/javascript"></script>
+      <script src="bootstrap-4.0.0/js/bootstrap.min.js" type="text/javascript"></script>
+
+      <!-- Custom styles for this template -->
+      <link href="signin.css" rel="stylesheet">
+    </head>
+
+    <body class="text-center">
+      <form id="inicio" class="form-signin" action ="usuario.html">
+        <img class="mb-4" src="Film-icon.png" alt="" width="72" height="72">
+        <h1 class="h3 mb-3 font-weight-normal">Iniciar Sesion</h1>
+        <label for="inputEmail" class="sr-only">Usuario</label>
+        <input type="text" id="user" class="form-control" placeholder="Usuario" required autofocus>
+        <label for="inputPassword" class="sr-only">Contraseña</label>
+        <input type="password" id="password" class="form-control" placeholder="Contraseña" required>
+        <button class="btn btn-lg btn-primary btn-block" type="submit">Ingresar</button>
+        <p class="mt-5 mb-3 text-muted">&copy; Movies Colombia S.A</p>
+          <div class="alert alert-dark" role="alert">
+            <asp:Label ID="lblMensajes" runat="server"></asp:Label>
+          </div>
+      </form>
+      <script src="jquery-3.4.1.min.js"></script>
+      <script type="text/javascript">
+        $(function () {
+
+
+        /*al digitar el password solo deben ser numeros*/
+          $("#password").change(function(){
+            alert($(this).val());
+            
+          });
+
+
+        /*boton aceptar*/
+          $( "#inicio" ).submit(function( event ) {
+            var user=$("#user").val();
+            var pass=$("#password").val();
+            if(user == ""){
+              $("#lblMensajes").text("Usuario no válido."); 
+              return false;
+            }
+            if(pass == ""){
+              $("#lblMensajes").text("Contraseña no valida.");
+              return false;
+            }
+            if(user.toUppercase()=="DYDIER" && pass =="1BAC@abc"){
+              return true;
+            }
+          });
+        });
+      </script>
+    </body>
+  </html>
