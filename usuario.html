@@ -138,7 +138,7 @@
                     <div class="tab-content">
                       <div class="tab-pane fade active show" role="tabpanel" id="profile">
                         <!--end of avatar-->
-                        <form id="usuario">
+                        <form id="registro" method="post" action="usuario.html">
                           <div class="form-group row align-items-center">
                             <label class="col-3">Nombres</label>
                             <div class="col">
@@ -239,10 +239,6 @@
 
     <!-- Bootstrap core JavaScript-->
     <script src="vendor/jquery/jquery.min.js"></script>
-    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
-
-    <!-- Core plugin JavaScript-->
-    <script src="vendor/jquery-easing/jquery.easing.min.js"></script>
 
     <!-- Custom scripts for all pages-->
     <script src="js/sb-admin-2.min.js"></script>
@@ -299,47 +295,73 @@
             }
           });
 
-          $( "#usuario" ).submit(function( event ) {
+          $("#registro").submit(function( event ) {
 
-          var data = $("#usuario").extractObject();
+          var dataU = $("#registro").extractObject();
 
-            if(data.nombres == ""){
+            if(dataU.nombres == ""){
              $("#lblMensajes").text("Nombres no valido.");
              $("#nombres").prop('required',true);  
              return false;
             }
-            if(data.apellidos == ""){
+            if(dataU.apellidos == ""){
              $("#lblMensajes").text("Apellidos no valido.");
              $("#apellidos").prop('required',true);   
              return false;
             }
-            if(data.email == ""){
+            if(dataU.email == ""){
              $("#lblMensajes").text("Apellidos no valido.");
              $("#apellidos").prop('required',true); 
              return false;
             }
-            if(data.usuario == ""){
+            if(dataU.usuario == ""){
               $("#lblMensajes").text("Usuario no valido.");
                $("#usuario").prop('required',true); 
              return false;
             }
-            if(data.password1 == ""){
+            if(dataU.password1 == ""){
              $("#lblMensajes").text("Contraseña no valido.");
              $("#password1").prop('required',true); 
              return false; 
             }
-            if(data.password2 == ""){
+            if(dataU.password2 == ""){
              $("#lblMensajes").text("Contraseña no valido.");
              $("#password2").prop('required',true); 
              return false; 
             }
-            if(data.password2 != data.password1){
+            if(dataU.password2 != dataU.password1){
               $("#lblMensajes").text("Contraseñas no coinciden.");
               return false;
             }
-            $("#logoutModal").css("display", "block");
-            $("#logoutModal").css('opacity', 1);
-            $(".modal-body").text("Bienvenido "+data.nombres + " "+data.apellidos);
+            //registrar el usuario
+            $.ajax
+            ({
+              type:'post',
+              url:'login.php',
+              data:{
+               tipo:2,
+               nombres:dataU.nombres,
+               apellidos:dataU.apellidos,
+               correo:dataU.email,
+               usuario:dataU.usuario,
+               contrasena:dataU.password1
+              },
+              success:function(response) {
+                if(response==1)
+                {
+                  $("#logoutModal").css("display", "block");
+                  $("#logoutModal").css('opacity', 1);
+                  $(".modal-body").text("Bienvenido "+dataU.nombres + " "+dataU.apellidos);
+                  return true;
+                }
+                else
+                {
+                  alert("Usuairo no registrado");
+                  return false;
+                }
+              }
+            });
+            
             return false;
           });
         });
