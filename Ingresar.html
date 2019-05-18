@@ -19,7 +19,7 @@
     </head>
 
     <body class="text-center">
-      <form id="inicio" class="form-signin" action ="usuario.html">
+      <form id="inicio" class="form-signin" action ="usuario.html" method="post">
         <img class="mb-4" src="Film-icon.png" alt="" width="72" height="72">
         <h1 class="h3 mb-3 font-weight-normal">Iniciar Sesion</h1>
         <label for="inputEmail" class="sr-only">Usuario</label>
@@ -35,19 +35,17 @@
       <script src="jquery-3.4.1.min.js"></script>
       <script type="text/javascript">
         $(function () {
-
-
-        /*al digitar el password solo deben ser numeros*/
           $("#password").change(function(){
-            alert($(this).val());
-            
+            if(!$.isNumeric($(this).val())){
+              $("#lblMensajes").text("Contraseña no valida, solo numeros.");
+            }
           });
-
 
         /*boton aceptar*/
           $( "#inicio" ).submit(function( event ) {
-            var user=$("#user").val();
-            var pass=$("#password").val();
+            var retValue = false;
+            var user = $("#user").val();
+            var pass = $("#password").val();
             if(user == ""){
               $("#lblMensajes").text("Usuario no válido."); 
               return false;
@@ -56,9 +54,29 @@
               $("#lblMensajes").text("Contraseña no valida.");
               return false;
             }
-            if(user.toUppercase()=="DYDIER" && pass =="1BAC@abc"){
-              return true;
-            }
+            $.ajax
+            ({
+              type:'post',
+              url:'login.php',
+              global: false,
+              data:{
+               tipo:1,
+               user:user,
+               password:pass
+              },
+              async: false, //blocks window close
+              success:function(response) {
+                if($.trim(response) == "1"){
+                  retValue = true;
+                }
+                else
+                {
+                  alert("Usuairo no registrado");
+                  retValue = false;
+                }
+              }
+            });
+            return retValue;
           });
         });
       </script>
