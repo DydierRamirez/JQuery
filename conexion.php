@@ -36,7 +36,11 @@ class Conexion {
     {
     	if($this->ValidarUsuario($usuario,$contrasena)=="1")
     	{
+<<<<<<< HEAD
     		return 0;	
+=======
+    		return 0;
+>>>>>>> b78a617dc0e3dc48b7ed651a6018e357364b421f
     	}
     	else
     	{

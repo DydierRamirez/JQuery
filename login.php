@@ -25,7 +25,11 @@ else if(isset($_POST['tipo']) && $_POST['tipo']=="2")
 	if(isset($_POST['nombres']) && isset($_POST['apellidos']) && isset($_POST['correo']) && isset($_POST['usuario']) && isset($_POST['contrasena']))
 	{
 		$clave = hash("md5", $_POST['contrasena'], false);
+<<<<<<< HEAD
 		if($con->IngresarUsuario($_POST['nombres'], $_POST['apellidos'], $_POST['correo'], $_POST['usuario'], $clave) == 1)
+=======
+		if($con->IngresarUsuario($_POST['nombres'], $_POST['apellidos'], $_POST['correo'], $_POST['usuario'], $_POST['contrasena']) == 1)
+>>>>>>> b78a617dc0e3dc48b7ed651a6018e357364b421f
 			echo 1;
 		else
 			echo 0;
